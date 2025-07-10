@@ -1,0 +1,31 @@
+name: Assess compatibility of repository with pre-release version of InvenioRDM
+
+# Assumes repository defines a `dev_pre` extra and uses `invoke` as test-runner
+
+on:
+  workflow_call:
+
+jobs:
+  assess:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+          python-version: ["3.9", "3.13"]
+          requirements-level: [pypi]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pip install --pre .[dev_pre]
+          pip freeze
+
+      - name: Run tests
+        run: |
+          invoke test --no-color
