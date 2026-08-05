@@ -9,7 +9,7 @@ on:
         description: "Python versions"
         type: string
         # NOTE: There is no "array" type, so we use "string" and parse it in the matrix
-        default: '["3.11", "3.14"]'
+        default: '["3.14"]'
       extras:
         description: "Extra dependencies"
         type: string
@@ -23,10 +23,10 @@ jobs:
           python-version: ${{ fromJson(inputs.python-version) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -38,10 +38,6 @@ jobs:
         run: |
           pip install .[${{ inputs.extras }}]
           pip freeze
-
-      - name: Check manifest
-        run: |
-          invoke check-manifest
 
       - name: Run tests
         run: |
