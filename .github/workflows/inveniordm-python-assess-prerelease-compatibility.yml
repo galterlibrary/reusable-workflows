@@ -1,0 +1,13 @@
+name: Assess compatibility of repository with pre-release version of InvenioRDM
+
+# Assumes repository defines a `dev_pre` extra and uses `invoke` as test-runner
+
+on:
+  workflow_call:
+
+jobs:
+  assess:
+    uses: ./.github/workflows/inveniordm-python-run-tests.yml@main
+    with:
+      python-version: '["3.14"]'
+      extras: dev_pre
