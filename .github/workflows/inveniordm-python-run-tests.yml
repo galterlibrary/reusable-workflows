@@ -16,7 +16,7 @@ on:
         default: 'dev'
 
 jobs:
-  assess:
+  run-tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
