@@ -7,7 +7,7 @@ on:
 
 jobs:
   assess:
-    uses: ./.github/workflows/inveniordm-python-run-tests.yml@main
+    uses: $/.github/workflows/inveniordm-python-run-tests.yml
     with:
       python-version: '["3.14"]'
       extras: dev_pre
